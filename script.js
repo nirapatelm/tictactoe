@@ -5,13 +5,14 @@ let currentPlayer = "x";
 let gameState = ["", "", "", "", "", "", "", "", ""];
 
 
-// Messages
+// Message Logs
 const winningMessage = () => `${currentPlayer} wins!`;
 const drawMessage = () => `it's a tie!`;
 const currentPlayerTurn = () => `it's ${currentPlayer}'s turn.`;
 
 statusDisplay.innerHTML = currentPlayerTurn();
 
+// Conditionals
 const winningConditions = [
     [0, 1, 2],
     [3, 4, 5],
@@ -23,16 +24,20 @@ const winningConditions = [
     [2, 4, 6]
 ];
 
+// Clicks
 function handleCellPlayed(clickedCell, clickedCellIndex) {
     gameState[clickedCellIndex] = currentPlayer;
     clickedCell.innerHTML = currentPlayer;
 }
 
+
+// Changing Players/Alternating Turns
 function handlePlayerChange() {
     currentPlayer = currentPlayer === "x" ? "o" : "x";
     statusDisplay.innerHTML = currentPlayerTurn();
 }
 
+// Validation Test/Results Declaration
 function handleResultValidation() {
     let roundWon = false;
     for (let i = 0; i <= 7; i++) {
@@ -65,6 +70,7 @@ function handleResultValidation() {
     handlePlayerChange();
 }
 
+// Cell Events (Clicks)
 function handleCellClick(clickedCellEvent) {
     const clickedCell = clickedCellEvent.target;
     const clickedCellIndex = parseInt(clickedCell.getAttribute('data-cell-index'));
@@ -77,6 +83,7 @@ function handleCellClick(clickedCellEvent) {
     handleResultValidation();
 }
 
+// Reset Game/New Round Functionality
 function handleRestartGame() {
     gameActive = true;
     currentPlayer = "x";
@@ -85,7 +92,7 @@ function handleRestartGame() {
     document.querySelectorAll('.cell').forEach(cell => cell.innerHTML = "");
 }
 
-
+// Query Selectors
 document.querySelectorAll('.cell').forEach(cell => cell.addEventListener('click', handleCellClick));
 document.querySelector('.game-restart').addEventListener('click', handleRestartGame);
  
